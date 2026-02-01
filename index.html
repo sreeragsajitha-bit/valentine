@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💖</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:"Poppins",Arial,sans-serif;
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#04010a;
+}
+
+/* ===== BACKGROUND ===== */
+.bg-aurora{
+  position:fixed;
+  inset:-20%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,120,200,.35), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(120,120,255,.35), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(255,200,220,.25), transparent 55%);
+  animation:aurora 22s ease-in-out infinite;
+  z-index:1;
+}
+@keyframes aurora{50%{filter:hue-rotate(25deg)}}
+
+.bg-mist{
+  position:fixed;
+  inset:-30%;
+  background:radial-gradient(circle,rgba(255,255,255,.06),transparent 65%);
+  animation:mist 40s linear infinite;
+  z-index:2;
+}
+@keyframes mist{
+  from{transform:translateX(-10%)}
+  to{transform:translateX(10%)}
+}
+
+.moon-rays{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.12),transparent 40%),
+    linear-gradient(140deg,rgba(255,255,255,.08),transparent 45%);
+  mix-blend-mode:screen;
+  animation:rays 25s ease-in-out infinite;
+  z-index:3;
+}
+@keyframes rays{50%{transform:translateX(-3%)}}
+
+.bg-heart{
+  position:fixed;
+  font-size:18px;
+  opacity:.35;
+  animation:floatHeart linear infinite;
+  z-index:4;
+}
+@keyframes floatHeart{
+  from{transform:translateY(120vh)}
+  to{transform:translateY(-20vh)}
+}
+
+/* 💋 ambient kisses */
+.bg-kiss{
+  position:fixed;
+  font-size:16px;
+  opacity:.25;
+  animation:floatKiss linear infinite;
+  z-index:4;
+}
+@keyframes floatKiss{
+  from{transform:translateY(120vh) scale(.8)}
+  to{transform:translateY(-20vh) scale(1.2)}
+}
+
+#constellation{
+  position:fixed;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+
+.vignette{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,transparent 55%,rgba(0,0,0,.65));
+  z-index:5;
+}
+
+/* ===== CARD ===== */
+.card{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  padding:28px 22px;
+  border-radius:30px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(22px);
+  box-shadow:0 40px 90px rgba(0,0,0,.5);
+  z-index:10;
+  text-align:center;
+}
+
+h1{
+  color:white;
+  font-size:28px;
+  text-shadow:0 4px 25px rgba(0,0,0,.7);
+}
+
+/* ===== BUTTONS ===== */
+.buttons{position:relative;height:160px}
+
+button{
+  padding:14px 32px;
+  font-size:18px;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+#yes{
+  background:linear-gradient(135deg,#ff4d6d,#ff9fc5);
+  color:white;
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{50%{box-shadow:0 0 70px rgba(255,120,180,1)}}
+
+#no{
+  background:#eee;
+  position:absolute;
+  top:90px;
+  left:140px;
+  transition:none;
+}
+
+/* hehe tooltip */
+.hehe{
+  position:absolute;
+  font-size:13px;
+  background:rgba(0,0,0,.6);
+  color:white;
+  padding:4px 8px;
+  border-radius:12px;
+  opacity:0;
+  animation:hehe 1.2s ease forwards;
+}
+@keyframes hehe{
+  30%{opacity:1}
+  100%{opacity:0;transform:translateY(-6px)}
+}
+
+/* ===== LOVE PAGE ===== */
+#lovePage{display:none}
+
+#typewriter{
+  font-size:26px;
+  color:white;
+  min-height:64px;
+}
+
+#smallMessage{
+  font-size:15px;
+  color:rgba(255,255,255,.85);
+  margin-top:8px;
+}
+
+#valentineMessage{
+  font-size:16px;
+  color:white;
+  margin-top:14px;
+  text-shadow:0 0 12px rgba(255,180,220,.9);
+}
+
+#couplePic{
+  width:92%;
+  max-width:300px;
+  border-radius:26px;
+  border:4px solid white;
+  margin:18px auto;
+  animation:glow 4s ease-in-out infinite;
+}
+@keyframes glow{50%{box-shadow:0 0 120px rgba(255,150,220,1)}}
+
+.flower{
+  font-size:42px;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-14px)}}
+
+/* ===== ANIMALS ===== */
+.animal{
+  position:fixed;
+  font-size:30px;
+  pointer-events:none;
+  z-index:20;
+  transition:left 2s ease,top 2s ease;
+}
+.deer{animation:deer 2.8s ease-in-out infinite}
+.chipmunk{animation:chip 1.3s ease-in-out infinite}
+@keyframes deer{50%{transform:translateY(-6px)}}
+@keyframes chip{50%{transform:translateY(-10px) rotate(-8deg)}}
+
+/* 💖💋 meet pops */
+.meet-heart,.meet-kiss{
+  position:fixed;
+  z-index:30;
+  animation:pop 1.4s ease forwards;
+}
+.meet-heart{font-size:28px}
+.meet-kiss{font-size:22px}
+
+@keyframes pop{
+  0%{transform:scale(0);opacity:0}
+  40%{transform:scale(1.6);opacity:1}
+  100%{transform:scale(.6) translateY(-20px);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-aurora"></div>
+<div class="bg-mist"></div>
+<div class="moon-rays"></div>
+<canvas id="constellation"></canvas>
+<div class="vignette"></div>
+
+<div id="questionPage" class="card">
+  <h1>Will you be my Valentine? 💌</h1>
+  <div class="buttons">
+    <button id="yes" onclick="showLove()">YES 💖</button>
+    <button id="no"
+      onmouseover="handleNoHover()"
+      ontouchstart="handleNoHover()"
+      onclick="handleNoClick()">NO 🙃</button>
+  </div>
+</div>
+
+<div id="lovePage" class="card">
+  <h1 id="typewriter"></h1>
+  <div id="smallMessage">Wherever you go, I’ll always find my way back to you 🤍</div>
+  <div id="valentineMessage">
+    Happy Valentine’s Day, my love 🤍<br>
+    Thank you for being my today, my tomorrow, my always.
+  </div>
+  <img id="couplePic" src="us.jpg">
+  <div class="flower">🌸</div>
+</div>
+
+<script>
+/* background hearts */
+for(let i=0;i<25;i++){
+  const h=document.createElement("div");
+  h.className="bg-heart";
+  h.innerText=["💗","💖","❤️"][Math.floor(Math.random()*3)];
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*15+15)+"s";
+  document.body.appendChild(h);
+}
+
+/* 💋 ambient kisses */
+for(let i=0;i<10;i++){
+  const k=document.createElement("div");
+  k.className="bg-kiss";
+  k.innerText="💋";
+  k.style.left=Math.random()*100+"vw";
+  k.style.animationDuration=(Math.random()*20+25)+"s";
+  document.body.appendChild(k);
+}
+
+/* constellation */
+const c=document.getElementById("constellation"),ctx=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();addEventListener("resize",resize);
+
+let stars=[];
+const n=22;
+(function(){
+  const s=Math.min(c.width,c.height)/18;
+  const cx=c.width/2,cy=c.height/2-80;
+  for(let i=0;i<n;i++){
+    const t=2*Math.PI*i/n;
+    const x=16*Math.sin(t)**3;
+    const y=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
+    stars.push({x:cx+x*s,y:cy-y*s,a:Math.random(),d:.01});
+  }
+})();
+(function draw(){
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.strokeStyle="rgba(255,180,220,.35)";
+  ctx.beginPath();
+  stars.forEach((s,i)=>i?ctx.lineTo(s.x,s.y):ctx.moveTo(s.x,s.y));
+  ctx.closePath();ctx.stroke();
+  stars.forEach(s=>{
+    s.a+=s.d;if(s.a>1||s.a<.3)s.d*=-1;
+    ctx.fillStyle=`rgba(255,220,240,${s.a})`;
+    ctx.beginPath();ctx.arc(s.x,s.y,2.2,0,Math.PI*2);ctx.fill();
+  });
+  requestAnimationFrame(draw);
+})();
+
+/* NO logic */
+let noCount=0,noConverted=false;
+function handleNoHover(){
+  if(noConverted)return;
+  const card=questionPage,btn=no;
+  noCount++;
+  if(noCount>=5){
+    btn.innerText="okay okay YES 😭";
+    noConverted=true;
+    return;
+  }
+  const x=Math.random()*(card.clientWidth-btn.offsetWidth-20);
+  const y=Math.random()*(card.clientHeight-btn.offsetHeight-20);
+  btn.style.left=x+"px";btn.style.top=y+"px";
+  const hehe=document.createElement("div");
+  hehe.className="hehe";hehe.innerText="hehe 😜";
+  hehe.style.left=(x+10)+"px";hehe.style.top=(y-18)+"px";
+  card.appendChild(hehe);setTimeout(()=>hehe.remove(),1200);
+}
+function handleNoClick(){
+  if(noConverted)showLove();
+}
+
+/* LOVE FLOW + ANIMALS */
+const msg="I love you Thanu babyyy ❤️";
+let i=0,deer,chip,deerPos={x:0,y:0};
+
+function showLove(){
+  questionPage.style.display="none";
+  lovePage.style.display="block";
+  type();
+  startAnimals();
+}
+function type(){
+  if(i<msg.length){
+    typewriter.innerHTML+=msg[i++];
+    setTimeout(type,110);
+  }
+}
+function startAnimals(){
+  deer=create("🦌","deer");
+  chip=create("🐿️","chipmunk");
+  moveDeer();
+  setInterval(moveDeer,3500);
+  setInterval(follow,1600);
+}
+function create(e,c){
+  const a=document.createElement("div");
+  a.className="animal "+c;a.innerText=e;
+  document.body.appendChild(a);return a;
+}
+function moveDeer(){
+  deerPos.x=Math.random()*(innerWidth-80);
+  deerPos.y=Math.random()*(innerHeight-100);
+  deer.style.left=deerPos.x+"px";
+  deer.style.top=deerPos.y+"px";
+}
+function follow(){
+  const x=deerPos.x+(Math.random()*30-15);
+  const y=deerPos.y+(Math.random()*30-15);
+  chip.style.left=x+"px";chip.style.top=y+"px";
+
+  /* 💖 heart */
+  pop("meet-heart","💖",x+15,y-10);
+
+  /* 💋 kisses */
+  pop("meet-kiss","💋",x-10,y-20);
+  if(Math.random()>.5) pop("meet-kiss","💋",x+30,y-25);
+}
+
+function pop(cls,emoji,x,y){
+  const e=document.createElement("div");
+  e.className=cls;
+  e.innerText=emoji;
+  e.style.left=x+"px";
+  e.style.top=y+"px";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),1400);
+}
+</script>
+
+</body>
+</html>
