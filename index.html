@@ -10,12 +10,11 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  overflow: hidden;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-
   background: linear-gradient(-45deg, #ff6a88, #ff99ac, #ff758c, #ffb3c6);
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
@@ -30,9 +29,9 @@ body {
 /* floating hearts */
 .heart {
   position: absolute;
-  font-size: 20px;
+  font-size: 18px;
   animation: float 6s linear infinite;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 @keyframes float {
@@ -41,58 +40,47 @@ body {
   100% { transform: translateY(-10vh); opacity: 0; }
 }
 
-/* glass card */
+/* card */
 .container {
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
   background: rgba(255,255,255,0.2);
-  border-radius: 25px;
   padding: 40px;
-  max-width: 420px;
+  border-radius: 25px;
   text-align: center;
-  box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+  max-width: 420px;
   color: white;
-  animation: fadeIn 1.2s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: fadeIn 1s ease;
 }
 
 h1 {
-  font-size: 28px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.subtitle {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 20px;
-}
-
-/* glowing button */
 button {
+  margin-top: 15px;
   padding: 12px 25px;
   border: none;
   border-radius: 15px;
   background: linear-gradient(45deg, #ff4d6d, #ff85a1);
   color: white;
-  font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 0 0 15px rgba(255,77,109,0.6);
 }
 
 button:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 25px rgba(255,77,109,1);
+  transform: scale(1.1);
 }
 
-/* letter */
-#letter {
+/* text area */
+#text {
   margin-top: 20px;
   text-align: left;
-  display: none;
-  line-height: 1.6;
-  animation: fadeIn 1s ease;
+  white-space: pre-line;
+  min-height: 120px;
 }
 
-/* glowing love line */
+/* glow */
 .love {
   text-align: center;
   font-weight: bold;
@@ -109,68 +97,94 @@ button:hover {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* confetti */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  animation: fall 2s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
 </style>
 
 </head>
 
 <body>
 
+<div class="container">
+  <h1>Happy 10 Months ❤️</h1>
+  <p>Still choosing you. Always.</p>
+
+<button onclick="start()">Open this 💌</button>
+
+  <div id="text"></div>
+</div>
+
 <script>
-/* hearts generator */
+/* floating hearts */
 for(let i=0;i<25;i++){
   let h = document.createElement("div");
   h.className = "heart";
   h.innerHTML = "💖";
   h.style.left = Math.random()*100 + "vw";
-  h.style.fontSize = (15 + Math.random()*25) + "px";
-  h.style.animationDuration = (4 + Math.random()*4) + "s";
+  h.style.fontSize = (14 + Math.random()*20) + "px";
+  h.style.animationDuration = (3 + Math.random()*4) + "s";
   document.body.appendChild(h);
 }
-</script>
 
-<div class="container">
-  <h1>Happy 10 Months ❤️</h1>
-  <p class="subtitle">Still choosing you. Always.</p>
+/* typing message */
+const msg = `These 10 months with you...
 
-  <p>
-    10 months with you… and somehow it still feels new, special, and real.
-  </p>
+weren’t perfect — but they were real.
 
-<button onclick="openLetter()">Open this 💌</button>
+Every laugh, every fight, every moment...
 
-  <div id="letter">
-    <p>
-      These 10 months weren’t perfect… but they were ours. And that’s what makes them special.
-    </p>
+I still choose you.
 
-```
-<p>
-  We had laughs, fights, random moments… but through everything, I never stopped choosing you.
-</p>
+You’ve become my comfort,
+my happiness,
+and someone I never want to lose.
 
-<p>
-  You’ve become my comfort, my peace, and honestly one of the best things in my life.
-</p>
+And this isn’t just 10 months for me...
 
-<p>
-  I know I don’t always show my effort perfectly… but I promise, my feelings for you are real.
-</p>
+I want many more with you ❤️`;
 
-<p>
-  And this isn’t just 10 months for me… I want way more time with you.
-</p>
+let i = 0;
 
-<p class="love">
-  I love you. Happy 10 months ❤️
-</p>
-```
+function start(){
+  document.getElementById("text").innerHTML = "";
+  i = 0;
+  type();
+  confetti();
+}
 
-  </div>
-</div>
+function type(){
+  if(i < msg.length){
+    document.getElementById("text").innerHTML += msg.charAt(i);
+    i++;
+    setTimeout(type, 30);
+  } else {
+    document.getElementById("text").innerHTML += '<p class=\"love\">I love you ❤️</p>';
+  }
+}
 
-<script>
-function openLetter(){
-  document.getElementById("letter").style.display = "block";
+/* confetti */
+function confetti(){
+  for(let i=0;i<80;i++){
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},100%,70%)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
 }
 </script>
 
