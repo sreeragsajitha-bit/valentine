@@ -1,34 +1,23 @@
-<!DOCTYPE html>
-
-<html>
-<head>
-  <title>For You ❤️</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: #333;
-    }
-
 ```
 .container {
   text-align: center;
   background: white;
   padding: 30px;
   border-radius: 20px;
-  max-width: 400px;
+  max-width: 420px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  animation: fadeIn 1s ease-in-out;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
 h1 {
   color: #ff4d6d;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 15px;
 }
 
 button {
@@ -46,9 +35,10 @@ button:hover {
   background: #e63950;
 }
 
-#message {
+#letter {
   margin-top: 20px;
   display: none;
+  text-align: left;
   animation: fadeIn 1s ease-in-out;
 }
 
@@ -58,49 +48,26 @@ button:hover {
 }
 ```
 
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-  <h1>Hey You ❤️</h1>
-
-  <p>
-    I know I haven’t been putting enough effort lately… and you felt it.
-  </p>
-
-<button onclick="showMessage()">Open this 💌</button>
-
-  <div id="message">
-    <p>
-      But the truth is… I really, really love you.
-    </p>
+Open this 💌
 
 ```
 <p>
-  You’re not just someone I talk to — you’re someone I care about deeply,
-  think about randomly, and never want to lose.
+  We’ve had our ups, our small fights, moments where things weren’t perfect… but through all of it, I still choose you.
 </p>
 
 <p>
-  I might mess up sometimes, but I’m not taking you for granted.
-  I’ll prove it to you, not just say it.
+  You’ve become such a big part of my life  my comfort, my happiness, and honestly… one of the best things that ever happened to me.
+</p>
+
+<p>
+  I know I don’t always show it perfectly, but I truly love you more than my actions sometimes explain.
+</p>
+
+<p>
+  And I don’t just want these 10 months… I want many more with you.
 </p>
 
 <p style="color:#ff4d6d; font-weight:bold;">
-  I love you. Always ❤️
+  Happy 10 months, my love ❤️
 </p>
 ```
-
-  </div>
-</div>
-
-<script>
-  function showMessage() {
-    document.getElementById("message").style.display = "block";
-  }
-</script>
-
-</body>
-</html>
