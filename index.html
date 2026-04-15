@@ -1,121 +1,93 @@
-<!DOCTYPE html>
+<!-- MOSQUITO -->
 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sorry 😭❤️</title>
+<div class="mosquito" id="mosquito">
+
+  <!-- wings -->
+
+  <div class="wing left"></div>
+  <div class="wing right"></div>
+
+  <!-- body -->
+
+  <div class="body"></div>
+
+  <!-- legs -->
+
+  <div class="leg l1"></div>
+  <div class="leg l2"></div>
+  <div class="leg l3"></div>
+  <div class="leg r1"></div>
+  <div class="leg r2"></div>
+  <div class="leg r3"></div>
+
+  <!-- YOUR FACE -->
+
+  <img src="me.jpg" class="face">
+
+</div>
 
 <style>
-body {
-  margin: 0;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-}
-
-/* mosquito */
 .mosquito {
   position: absolute;
-  width: 100px;
+  width: 120px;
+  height: 120px;
   transition: 1.5s linear;
 }
 
-.mosquito img {
-  width: 100%;
+/* face */
+.face {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  z-index: 2;
+}
+
+/* body */
+.body {
+  width: 12px;
+  height: 60px;
+  background: black;
+  position: absolute;
+  top: 40px;
+  left: 54px;
+  border-radius: 10px;
 }
 
 /* wings */
-.wings {
+.wing {
+  width: 50px;
+  height: 20px;
+  background: rgba(255,255,255,0.4);
   position: absolute;
-  top: -10px;
-  left: -25px;
-  width: 150px;
-  height: 50px;
-  background: rgba(0,0,0,0.1);
+  top: 10px;
   border-radius: 50%;
   animation: flap 0.15s infinite alternate;
 }
+
+.wing.left { left: 0; }
+.wing.right { right: 0; }
 
 @keyframes flap {
   from { transform: rotate(0deg); }
   to { transform: rotate(15deg); }
 }
 
-/* message box */
-.container {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
-  max-width: 350px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+/* legs */
+.leg {
+  width: 40px;
+  height: 2px;
+  background: black;
+  position: absolute;
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
-}
+.l1 { top: 60px; left: 0; transform: rotate(30deg); }
+.l2 { top: 70px; left: 0; transform: rotate(10deg); }
+.l3 { top: 80px; left: 0; transform: rotate(-10deg); }
 
-#msg {
-  display: none;
-  margin-top: 10px;
-}
+.r1 { top: 60px; right: 0; transform: rotate(-30deg); }
+.r2 { top: 70px; right: 0; transform: rotate(-10deg); }
+.r3 { top: 80px; right: 0; transform: rotate(10deg); }
 </style>
-
-</head>
-
-<body>
-
-<!-- mosquito -->
-
-<div class="mosquito" id="mosquito">
-  <div class="wings"></div>
-  <img src="your-image.jpg" alt="me">
-</div>
-
-<!-- apology box -->
-
-<div class="container">
-  <h2>Catch me first 😭🦟</h2>
-  <button onclick="show()">I caught you 😤</button>
-
-  <div id="msg">
-    <p>I know I’ve hurt you bad and was showing too much cock…</p>
-    <p>But you really mean a lot to me.</p>
-    <p>I’ll do better, I promise ❤️</p>
-    <p><b>Please forgive me 🥺</b></p>
-  </div>
-</div>
-
-<script>
-const mosquito = document.getElementById("mosquito");
-
-/* random movement */
-function moveMosquito(){
-  let x = Math.random() * (window.innerWidth - 120);
-  let y = Math.random() * (window.innerHeight - 120);
-
-  mosquito.style.left = x + "px";
-  mosquito.style.top = y + "px";
-}
-
-setInterval(moveMosquito, 1500);
-
-/* click apology */
-function show(){
-  document.getElementById("msg").style.display = "block";
-}
-</script>
-
-</body>
-</html>
