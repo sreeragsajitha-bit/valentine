@@ -45,13 +45,51 @@ body {
   100% { transform: translateY(-10vh); opacity: 0; }
 }
 
+/* scene */
+.scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  z-index: 2;
+}
+
+.girl {
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* bite */
+.bite {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+  top: 80px;
+  left: 120px;
+  opacity: 0;
+}
+
+.aah {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+}
+
 /* mosquito */
 .mosquito {
   position: absolute;
   width: 100px;
   height: 100px;
-  transition: 1.5s linear;
-  z-index: 2;
+  transition: 1.2s linear;
+  z-index: 3;
 }
 
 .face {
@@ -61,7 +99,6 @@ body {
   position: absolute;
   top: 18px;
   left: 25px;
-  z-index: 2;
 }
 
 .body {
@@ -71,7 +108,6 @@ body {
   position: absolute;
   top: 35px;
   left: 45px;
-  border-radius: 10px;
 }
 
 .leg {
@@ -113,25 +149,17 @@ body {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  
   width: 90%;
   max-width: 360px;
-
   backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.75);
-
   padding: 18px;
   border-radius: 20px;
   text-align: center;
-
   color: white;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.1);
-
-  z-index: 2;
+  z-index: 3;
 }
 
-/* button */
 button {
   width: 100%;
   padding: 12px;
@@ -139,32 +167,13 @@ button {
   border-radius: 12px;
   background: linear-gradient(45deg, #ff4d6d, #ff85a1);
   color: white;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(255,77,109,0.6);
-  transition: 0.3s;
 }
-button:hover { transform: scale(1.05); }
 
-/* message */
 #msg { display: none; margin-top: 10px; }
 
 #msg b {
   color: #ff4d6d;
   text-shadow: 0 0 10px #ff4d6d;
-}
-
-/* confetti */
-.confetti {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  animation: fall 2s linear forwards;
-}
-@keyframes fall {
-  to {
-    transform: translateY(100vh) rotate(360deg);
-    opacity: 0;
-  }
 }
 </style>
 
@@ -174,63 +183,11 @@ button:hover { transform: scale(1.05); }
 
 <canvas id="bg"></canvas>
 
-<script>
-/* PARTICLES */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-  particles.push({
-    x: Math.random()*canvas.width,
-    y: Math.random()*canvas.height,
-    r: Math.random()*2 + 1,
-    dx: (Math.random()-0.5)*0.5,
-    dy: (Math.random()-0.5)*0.5
-  });
-}
-
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  for(let p of particles){
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-    ctx.fillStyle = "rgba(255, 77, 109, 0.6)";
-    ctx.fill();
-
-    p.x += p.dx;
-    p.y += p.dy;
-
-    if(p.x<0||p.x>canvas.width) p.dx *= -1;
-    if(p.y<0||p.y>canvas.height) p.dy *= -1;
-  }
-
-  requestAnimationFrame(draw);
-}
-draw();
-
-/* hearts */
-for(let i=0;i<20;i++){
-  let h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = Math.random()*100 + "vw";
-  h.style.fontSize = (14 + Math.random()*18) + "px";
-  h.style.animationDuration = (4 + Math.random()*4) + "s";
-  document.body.appendChild(h);
-}
-</script>
-
-<!-- MOSQUITO -->
+<div class="scene">
+  <img src="her.jpg" class="girl">
+  <div class="bite" id="bite"></div>
+  <div class="aah" id="aah">aah 😭</div>
+</div>
 
 <div class="mosquito" id="mosquito">
   <div class="wing left"></div>
@@ -247,8 +204,6 @@ for(let i=0;i<20;i++){
   <img src="me.jpg" class="face">
 </div>
 
-<!-- UI -->
-
 <div class="container">
   <h2>Catch me first 😭🦟</h2>
   <button onclick="show()">I caught you 😤</button>
@@ -256,28 +211,26 @@ for(let i=0;i<20;i++){
   <div id="msg">
     <p>Okay fine… you caught me 😭</p>
     <p>I know I’ve been low effort…</p>
-    <p>But you really mean a lot to me.</p>
-    <p>I’ll do better, I promise ❤️</p>
+    <p>But you really mean a lot to me ❤️</p>
     <p><b>Please forgive me 🥺</b></p>
   </div>
 </div>
 
 <script>
 const mosquito = document.getElementById("mosquito");
+const bite = document.getElementById("bite");
+const aah = document.getElementById("aah");
 
 let prevX = 0;
 let prevY = 0;
 
-/* movement optimized */
-function moveMosquito(){
-  let margin = 100;
-
-  let x = Math.random() * (window.innerWidth - margin);
-  let y = Math.random() * (window.innerHeight - margin);
+function animate(){
+  let x = Math.random() * window.innerWidth;
+  let y = Math.random() * window.innerHeight;
 
   let dx = x - prevX;
   let dy = y - prevY;
-  let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+  let angle = Math.atan2(dy, dx) * 180/Math.PI;
 
   mosquito.style.left = x + "px";
   mosquito.style.top = y + "px";
@@ -285,24 +238,29 @@ function moveMosquito(){
 
   prevX = x;
   prevY = y;
+
+  setTimeout(()=>{
+    mosquito.style.left = "55%";
+    mosquito.style.top = "40%";
+
+    setTimeout(()=>{
+      bite.style.opacity = 1;
+      aah.style.opacity = 1;
+
+      setTimeout(()=>{
+        bite.style.opacity = 0;
+        aah.style.opacity = 0;
+      },800);
+
+    },400);
+
+  },1200);
 }
 
-/* slower on mobile */
-let speed = window.innerWidth < 768 ? 2200 : 1500;
-setInterval(moveMosquito, speed);
+setInterval(animate, 3000);
 
-/* apology */
 function show(){
   document.getElementById("msg").style.display = "block";
-
-  for(let i=0;i<60;i++){
-    let c = document.createElement("div");
-    c.className = "confetti";
-    c.style.left = Math.random()*100 + "vw";
-    c.style.background = `hsl(${Math.random()*360},100%,70%)`;
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),2000);
-  }
 }
 </script>
 
