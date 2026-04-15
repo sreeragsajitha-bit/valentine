@@ -11,7 +11,6 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
-
   background: linear-gradient(-45deg, #1a1a1a, #2b2b2b, #ff4d6d, #1a1a1a);
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
@@ -23,14 +22,13 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* floating hearts */
+/* hearts */
 .heart {
   position: absolute;
   font-size: 18px;
   animation: float 6s linear infinite;
   opacity: 0.6;
 }
-
 @keyframes float {
   0% { transform: translateY(100vh); opacity: 0; }
   30% { opacity: 1; }
@@ -55,38 +53,21 @@ body {
   z-index: 2;
 }
 
+/* body + legs FIXED */
 .body {
   width: 12px;
   height: 60px;
-  background: white;
+  background: #222;
   position: absolute;
   top: 40px;
   left: 54px;
   border-radius: 10px;
 }
 
-.wing {
-  width: 50px;
-  height: 20px;
-  background: rgba(255,255,255,0.3);
-  position: absolute;
-  top: 10px;
-  border-radius: 50%;
-  animation: flap 0.15s infinite alternate;
-}
-
-.wing.left { left: 0; }
-.wing.right { right: 0; }
-
-@keyframes flap {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(15deg); }
-}
-
 .leg {
   width: 40px;
   height: 2px;
-  background: white;
+  background: #222;
   position: absolute;
 }
 
@@ -98,21 +79,36 @@ body {
 .r2 { top: 70px; right: 0; transform: rotate(-10deg); }
 .r3 { top: 80px; right: 0; transform: rotate(10deg); }
 
-/* apology box */
+/* wings */
+.wing {
+  width: 50px;
+  height: 20px;
+  background: rgba(255,255,255,0.3);
+  position: absolute;
+  top: 10px;
+  border-radius: 50%;
+  animation: flap 0.15s infinite alternate;
+}
+.wing.left { left: 0; }
+.wing.right { right: 0; }
+
+@keyframes flap {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(15deg); }
+}
+
+/* UI */
 .container {
   position: fixed;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  
   backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.75);
-
   padding: 22px;
   border-radius: 20px;
   max-width: 360px;
   text-align: center;
-
   color: white;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.1);
@@ -129,18 +125,11 @@ button {
   box-shadow: 0 0 15px rgba(255,77,109,0.6);
   transition: 0.3s;
 }
-
-button:hover {
-  transform: scale(1.08);
-}
+button:hover { transform: scale(1.08); }
 
 /* message */
-#msg {
-  display: none;
-  margin-top: 10px;
-}
+#msg { display: none; margin-top: 10px; }
 
-/* glowing text */
 #msg b {
   color: #ff4d6d;
   text-shadow: 0 0 10px #ff4d6d;
@@ -153,7 +142,6 @@ button:hover {
   height: 8px;
   animation: fall 2s linear forwards;
 }
-
 @keyframes fall {
   to {
     transform: translateY(100vh) rotate(360deg);
@@ -167,7 +155,7 @@ button:hover {
 <body>
 
 <script>
-/* floating hearts */
+/* hearts */
 for(let i=0;i<25;i++){
   let h = document.createElement("div");
   h.className = "heart";
@@ -196,12 +184,11 @@ for(let i=0;i<25;i++){
   <img src="me.jpg" class="face">
 </div>
 
-<!-- APOLOGY -->
+<!-- UI -->
 
 <div class="container">
   <h2>Catch me first 😭🦟</h2>
-
-<button onclick="show()">I caught you 😤</button>
+  <button onclick="show()">I caught you 😤</button>
 
   <div id="msg">
     <p>Okay fine… you caught me 😭</p>
@@ -215,13 +202,25 @@ for(let i=0;i<25;i++){
 <script>
 const mosquito = document.getElementById("mosquito");
 
-/* movement */
+let prevX = 0;
+let prevY = 0;
+
+/* movement + rotation */
 function moveMosquito(){
   let x = Math.random() * (window.innerWidth - 120);
   let y = Math.random() * (window.innerHeight - 120);
 
+  let dx = x - prevX;
+  let dy = y - prevY;
+
+  let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
   mosquito.style.left = x + "px";
   mosquito.style.top = y + "px";
+  mosquito.style.transform = "rotate(" + angle + "deg)";
+
+  prevX = x;
+  prevY = y;
 }
 setInterval(moveMosquito, 1500);
 
