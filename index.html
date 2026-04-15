@@ -1,32 +1,20 @@
-<!-- MOSQUITO -->
+<!DOCTYPE html>
 
-<div class="mosquito" id="mosquito">
-
-  <!-- wings -->
-
-  <div class="wing left"></div>
-  <div class="wing right"></div>
-
-  <!-- body -->
-
-  <div class="body"></div>
-
-  <!-- legs -->
-
-  <div class="leg l1"></div>
-  <div class="leg l2"></div>
-  <div class="leg l3"></div>
-  <div class="leg r1"></div>
-  <div class="leg r2"></div>
-  <div class="leg r3"></div>
-
-  <!-- YOUR FACE -->
-
-  <img src="me.jpg" class="face">
-
-</div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorry 😭❤️</title>
 
 <style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+/* mosquito */
 .mosquito {
   position: absolute;
   width: 120px;
@@ -90,4 +78,103 @@
 .r1 { top: 60px; right: 0; transform: rotate(-30deg); }
 .r2 { top: 70px; right: 0; transform: rotate(-10deg); }
 .r3 { top: 80px; right: 0; transform: rotate(10deg); }
+
+/* apology box */
+.container {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
+
+#msg {
+  display: none;
+  margin-top: 10px;
+}
 </style>
+
+</head>
+
+<body>
+
+<!-- MOSQUITO -->
+
+<div class="mosquito" id="mosquito">
+  <div class="wing left"></div>
+  <div class="wing right"></div>
+  <div class="body"></div>
+
+  <div class="leg l1"></div>
+  <div class="leg l2"></div>
+  <div class="leg l3"></div>
+  <div class="leg r1"></div>
+  <div class="leg r2"></div>
+  <div class="leg r3"></div>
+
+  <!-- YOUR IMAGE -->
+
+  <img src="me.jpg" class="face">
+</div>
+
+<!-- APOLOGY BOX -->
+
+<div class="container">
+  <h2>Catch me first 😭🦟</h2>
+
+<button onclick="show()">I caught you 😤</button>
+
+  <div id="msg">
+    <p>Okay fine… you caught me 😭</p>
+
+```
+<p>I know I’ve hurt you and was showing too much cock...</p>
+
+<p>But I swear I’m not taking you for granted.</p>
+
+<p>You mean too much to me for me to act like that again.</p>
+
+<p>I’ll do better. Not just say it… actually show it.</p>
+
+<p><b>Please forgive me 🥺❤️</b></p>
+```
+
+  </div>
+</div>
+
+<script>
+const mosquito = document.getElementById("mosquito");
+
+/* movement */
+function moveMosquito(){
+  let x = Math.random() * (window.innerWidth - 120);
+  let y = Math.random() * (window.innerHeight - 120);
+
+  mosquito.style.left = x + "px";
+  mosquito.style.top = y + "px";
+}
+
+setInterval(moveMosquito, 1500);
+
+/* show apology */
+function show(){
+  document.getElementById("msg").style.display = "block";
+}
+</script>
+
+</body>
+</html>
