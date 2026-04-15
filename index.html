@@ -22,7 +22,7 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* canvas background */
+/* canvas */
 #bg {
   position: fixed;
   top: 0;
@@ -48,54 +48,54 @@ body {
 /* mosquito */
 .mosquito {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   transition: 1.5s linear;
   z-index: 2;
 }
 
 .face {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   position: absolute;
-  top: 20px;
-  left: 30px;
+  top: 18px;
+  left: 25px;
   z-index: 2;
 }
 
 .body {
-  width: 12px;
-  height: 60px;
+  width: 10px;
+  height: 50px;
   background: #222;
   position: absolute;
-  top: 40px;
-  left: 54px;
+  top: 35px;
+  left: 45px;
   border-radius: 10px;
 }
 
 .leg {
-  width: 40px;
+  width: 35px;
   height: 2px;
   background: #222;
   position: absolute;
 }
 
-.l1 { top: 60px; left: 0; transform: rotate(30deg); }
-.l2 { top: 70px; left: 0; transform: rotate(10deg); }
-.l3 { top: 80px; left: 0; transform: rotate(-10deg); }
+.l1 { top: 50px; left: 0; transform: rotate(30deg); }
+.l2 { top: 60px; left: 0; transform: rotate(10deg); }
+.l3 { top: 70px; left: 0; transform: rotate(-10deg); }
 
-.r1 { top: 60px; right: 0; transform: rotate(-30deg); }
-.r2 { top: 70px; right: 0; transform: rotate(-10deg); }
-.r3 { top: 80px; right: 0; transform: rotate(10deg); }
+.r1 { top: 50px; right: 0; transform: rotate(-30deg); }
+.r2 { top: 60px; right: 0; transform: rotate(-10deg); }
+.r3 { top: 70px; right: 0; transform: rotate(10deg); }
 
 /* wings */
 .wing {
-  width: 50px;
-  height: 20px;
+  width: 40px;
+  height: 18px;
   background: rgba(255,255,255,0.3);
   position: absolute;
-  top: 10px;
+  top: 8px;
   border-radius: 50%;
   animation: flap 0.15s infinite alternate;
 }
@@ -110,24 +110,31 @@ body {
 /* UI */
 .container {
   position: fixed;
-  bottom: 30px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  
+  width: 90%;
+  max-width: 360px;
+
   backdrop-filter: blur(20px);
   background: rgba(0, 0, 0, 0.75);
-  padding: 22px;
+
+  padding: 18px;
   border-radius: 20px;
-  max-width: 360px;
   text-align: center;
+
   color: white;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
   border: 1px solid rgba(255,255,255,0.1);
+
   z-index: 2;
 }
 
 /* button */
 button {
-  padding: 10px 20px;
+  width: 100%;
+  padding: 12px;
   border: none;
   border-radius: 12px;
   background: linear-gradient(45deg, #ff4d6d, #ff85a1);
@@ -136,7 +143,7 @@ button {
   box-shadow: 0 0 15px rgba(255,77,109,0.6);
   transition: 0.3s;
 }
-button:hover { transform: scale(1.08); }
+button:hover { transform: scale(1.05); }
 
 /* message */
 #msg { display: none; margin-top: 10px; }
@@ -168,12 +175,16 @@ button:hover { transform: scale(1.08); }
 <canvas id="bg"></canvas>
 
 <script>
-/* PARTICLE BACKGROUND */
+/* PARTICLES */
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 let particles = [];
 
@@ -208,13 +219,13 @@ function draw(){
 draw();
 
 /* hearts */
-for(let i=0;i<25;i++){
+for(let i=0;i<20;i++){
   let h = document.createElement("div");
   h.className = "heart";
   h.innerHTML = "💖";
   h.style.left = Math.random()*100 + "vw";
-  h.style.fontSize = (14 + Math.random()*20) + "px";
-  h.style.animationDuration = (3 + Math.random()*4) + "s";
+  h.style.fontSize = (14 + Math.random()*18) + "px";
+  h.style.animationDuration = (4 + Math.random()*4) + "s";
   document.body.appendChild(h);
 }
 </script>
@@ -257,9 +268,12 @@ const mosquito = document.getElementById("mosquito");
 let prevX = 0;
 let prevY = 0;
 
+/* movement optimized */
 function moveMosquito(){
-  let x = Math.random() * (window.innerWidth - 120);
-  let y = Math.random() * (window.innerHeight - 120);
+  let margin = 100;
+
+  let x = Math.random() * (window.innerWidth - margin);
+  let y = Math.random() * (window.innerHeight - margin);
 
   let dx = x - prevX;
   let dy = y - prevY;
@@ -272,13 +286,16 @@ function moveMosquito(){
   prevX = x;
   prevY = y;
 }
-setInterval(moveMosquito, 1500);
+
+/* slower on mobile */
+let speed = window.innerWidth < 768 ? 2200 : 1500;
+setInterval(moveMosquito, speed);
 
 /* apology */
 function show(){
   document.getElementById("msg").style.display = "block";
 
-  for(let i=0;i<80;i++){
+  for(let i=0;i<60;i++){
     let c = document.createElement("div");
     c.className = "confetti";
     c.style.left = Math.random()*100 + "vw";
